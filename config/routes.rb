@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  resources :media
+
+  resources :members
+
+  resources :group_shares
+
+  resources :groups
+
+  resources :votes
+
+  resources :slams
+
   get 'welcome/index'
 
    

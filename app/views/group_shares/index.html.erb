@@ -1,0 +1,27 @@
+<h1>Listing group_shares</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>Media</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @group_shares.each do |group_share| %>
+      <tr>
+        <td><%= group_share.group %></td>
+        <td><%= group_share.media %></td>
+        <td><%= link_to 'Show', group_share %></td>
+        <td><%= link_to 'Edit', edit_group_share_path(group_share) %></td>
+        <td><%= link_to 'Destroy', group_share, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Group share', new_group_share_path %>

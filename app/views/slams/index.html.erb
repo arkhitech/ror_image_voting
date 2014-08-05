@@ -1,0 +1,27 @@
+<h1>Listing slams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Media id first</th>
+      <th>Media id second</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slams.each do |slam| %>
+      <tr>
+        <td><%= slam.media_id_first %></td>
+        <td><%= slam.media_id_second %></td>
+        <td><%= link_to 'Show', slam %></td>
+        <td><%= link_to 'Edit', edit_slam_path(slam) %></td>
+        <td><%= link_to 'Destroy', slam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Slam', new_slam_path %>

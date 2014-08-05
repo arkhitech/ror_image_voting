@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @group_share.group %>
+</p>
+
+<p>
+  <strong>Media:</strong>
+  <%= @group_share.media %>
+</p>
+
+<%= link_to 'Edit', edit_group_share_path(@group_share) %> |
+<%= link_to 'Back', group_shares_path %>

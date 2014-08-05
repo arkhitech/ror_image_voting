@@ -1,4 +1,4 @@
-ActiveAdmin.register Slams do
+ActiveAdmin.register Slam do
 
 
   permit_params :media_first_id, :media_second_id, :current_admin_user, 

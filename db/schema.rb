@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805120033) do
+ActiveRecord::Schema.define(version: 20140805143033) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -75,11 +75,14 @@ ActiveRecord::Schema.define(version: 20140805120033) do
   add_index "members", ["user_id"], name: "index_members_on_user_id"
 
   create_table "slams", force: true do |t|
-    t.integer  "media_first_id"
-    t.integer  "media_second_id"
+    t.integer  "media_id_first_id"
+    t.integer  "media_id_second_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "slams", ["media_id_first_id"], name: "index_slams_on_media_id_first_id"
+  add_index "slams", ["media_id_second_id"], name: "index_slams_on_media_id_second_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                              default: "", null: false
@@ -106,13 +109,13 @@ ActiveRecord::Schema.define(version: 20140805120033) do
 
   create_table "votes", force: true do |t|
     t.boolean  "vote_status"
-    t.integer  "user_id"
-    t.integer  "slam_id"
+    t.integer  "user_id_id"
+    t.integer  "slam_id_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["slam_id"], name: "index_votes_on_slam_id"
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+  add_index "votes", ["slam_id_id"], name: "index_votes_on_slam_id_id"
+  add_index "votes", ["user_id_id"], name: "index_votes_on_user_id_id"
 
 end

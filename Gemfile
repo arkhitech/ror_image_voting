@@ -39,9 +39,9 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 #gem 'rmagick'
 gem "mini_magick"
 
-# Use debugger
 gem 'carrierwave'
-gem 'debugger', group: [:development, :test]
+# Use debugger
+#gem 'debugger', group: [:development, :test]
 
 gem 'devise'
 gem 'cancan'

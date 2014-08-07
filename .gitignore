@@ -16,3 +16,5 @@
 /tmp
 /nbproject/
 /public/uploads/
+/config/database.yml
+/bin/

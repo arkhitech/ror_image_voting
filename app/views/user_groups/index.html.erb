@@ -10,13 +10,13 @@
   </thead>
 
   <tbody>
-    <% @groups.each do |group| %>
+    <% @user_groups.each do |user_group| %>
       <tr>
-        <td><%= group.group_name %></td>
-        <td><%= group.user %></td>
-        <td><%= link_to 'Show', group %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= user_group.group_name %></td>
+        <td><%= user_group.user %></td>
+        <td><%= link_to 'Show', user_group %></td>
+        <td><%= link_to 'Edit', edit_user_group_path(user_group) %></td>
+        <td><%= link_to 'Destroy', user_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'New Group', new_user_group_path %>

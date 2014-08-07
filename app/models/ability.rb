@@ -7,7 +7,11 @@ class Ability
         can :manage, :all
     end
     if user.role? :advertiser
-        can :manage, Slams
+      can :read, ActiveAdmin::Page, :name => "Dashboard"
+      can :manage, Slam
+    else
+      can :read, :all
+      can :manage, UserGroup
     end
   end
 end

@@ -1,4 +1,4 @@
-ActiveAdmin.register Media do
+ActiveAdmin.register Medium do
 
 
   permit_params :email, :login, :password, :password_confirmation, :caption, :is_private, :user_id, :picture, :avatar, :admin_user_id

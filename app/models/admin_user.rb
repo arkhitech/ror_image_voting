@@ -4,7 +4,7 @@ class AdminUser < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
        
-  belongs_to :media
+  belongs_to :medium
        
   
   ROLES = %w(superadmin advertiser)

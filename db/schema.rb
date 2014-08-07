@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805143033) do
+ActiveRecord::Schema.define(version: 20140807062950) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -42,15 +42,6 @@ ActiveRecord::Schema.define(version: 20140805143033) do
   add_index "group_shares", ["group_id"], name: "index_group_shares_on_group_id"
   add_index "group_shares", ["media_id"], name: "index_group_shares_on_media_id"
 
-  create_table "groups", force: true do |t|
-    t.string   "group_name"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "groups", ["user_id"], name: "index_groups_on_user_id"
-
   create_table "media", force: true do |t|
     t.string   "picture"
     t.string   "caption",       limit: 140
@@ -75,14 +66,23 @@ ActiveRecord::Schema.define(version: 20140805143033) do
   add_index "members", ["user_id"], name: "index_members_on_user_id"
 
   create_table "slams", force: true do |t|
-    t.integer  "media_id_first_id"
-    t.integer  "media_id_second_id"
+    t.integer  "medium_first_id"
+    t.integer  "medium_second_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "slams", ["media_id_first_id"], name: "index_slams_on_media_id_first_id"
-  add_index "slams", ["media_id_second_id"], name: "index_slams_on_media_id_second_id"
+  add_index "slams", ["medium_first_id"], name: "index_slams_on_medium_first_id"
+  add_index "slams", ["medium_second_id"], name: "index_slams_on_medium_second_id"
+
+  create_table "user_groups", force: true do |t|
+    t.string   "group_name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                              default: "", null: false
@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 20140805143033) do
     t.string   "profile_picture"
     t.string   "description",            limit: 140
     t.boolean  "is_private"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

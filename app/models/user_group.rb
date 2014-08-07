@@ -1,3 +1,3 @@
-class Group < ActiveRecord::Base
+class UserGroup < ActiveRecord::Base
   belongs_to :user
 end

@@ -14,13 +14,13 @@
   <tbody>
     <% @media.each do |medium| %>
       <tr>
-        <td><%= medium.picture %></td>
+        <td><%= image_tag medium.picture_url(:thumb) %></td>
         <td><%= medium.caption %></td>
         <td><%= medium.is_private %></td>
         <td><%= medium.user %></td>
         <td><%= link_to 'Show', medium %></td>
-        <td><%= link_to 'Edit', edit_medium_path(medium) %></td>
-        <td><%= link_to 'Destroy', medium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%#= link_to 'Edit', edit_medium_path(medium) %></td>
+        <td><%#= link_to 'Destroy', medium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Medium', new_medium_path %>
+<%#= link_to 'New Medium', new_medium_path %>

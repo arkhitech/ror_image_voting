@@ -1,4 +1,4 @@
-ActiveAdmin.register Group do
+ActiveAdmin.register UserGroup do
 
 
   # See permitted parameters documentation:

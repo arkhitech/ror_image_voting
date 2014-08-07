@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :group_shares
 
-  resources :groups
+  resources :user_groups
 
   resources :votes
 
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
    
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
 #  devise_scope :user do
 #    get 'login' => 'devise/sessions#new', as: :login
 #    delete 'logout' => 'devise/sessions#destroy', as: :logout

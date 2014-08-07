@@ -47,3 +47,7 @@ gem 'devise'
 gem 'cancan'
 gem 'activeadmin', github: 'gregbell/active_admin'
 
+gem 'omniauth-facebook'
+
+gem 'capistrano', '~> 3.2.0'
+

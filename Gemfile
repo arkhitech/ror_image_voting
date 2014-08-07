@@ -49,5 +49,9 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'omniauth-facebook'
 
-gem 'capistrano', '~> 3.2.0'
-
+group :development do
+  gem 'capistrano', '~> 3.2.0'
+  gem 'capistrano-rvm', '~> 0.1.0'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails', '~> 1.1.0'
+end

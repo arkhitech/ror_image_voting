@@ -17,5 +17,6 @@
 /nbproject/
 /public/uploads/
 /config/database.yml
+/config/application.yml
 /bin/
-/config/initializers/image_voting.rb
+*~

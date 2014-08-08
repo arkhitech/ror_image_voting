@@ -1,5 +1,6 @@
 class UserGroupsController < InheritedResources::Base
   
+  before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
   
   load_and_authorize_resource except: [:create]
@@ -21,6 +22,7 @@ class UserGroupsController < InheritedResources::Base
   def create  
     
     @user_group = UserGroup.create(user_group_params)
+    @user_group.user_id = current_user.id
     
     respond_with(@user_group) do |format|
       if @user_group.save

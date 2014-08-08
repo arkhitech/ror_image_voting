@@ -1,5 +1,6 @@
 class GroupSharesController < InheritedResources::Base
   
+  before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
   
   load_and_authorize_resource
@@ -9,22 +10,22 @@ class GroupSharesController < InheritedResources::Base
   
   
   def index
-    @group_shares = GroupShares.all
+    @group_shares = GroupShare.all
     respond_with(@group_shares)
 end
   
   def new
-    @group_share = GroupShares.new
+    @group_share = GroupShare.new
     respond_with(@group_share)
   end
   
   def show
-    @group_share = GroupShares.find(params[:id])
+    @group_share = GroupShare.find(params[:id])
     respond_with(@group_share)
   end
   
   def create
-    @group_share = GroupShares.create(group_share_params)
+    @group_share = GroupShare.create(group_share_params)
     respond_with(@group_share) do |format|
       if @group_share.save
         format.html { redirect_to @group_share, notice: 'User was successfully created.' }
@@ -37,7 +38,7 @@ end
   end
   
   def destroy
-    @group_share = GroupShares.destroy(params[:id])
+    @group_share = GroupShare.destroy(params[:id])
     respond_with(@group_share)
   end
   

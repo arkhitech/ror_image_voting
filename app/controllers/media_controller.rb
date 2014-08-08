@@ -1,8 +1,9 @@
 class MediaController < InheritedResources::Base
   
+  before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
   
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create]
   
   respond_to :json, :html, :xml
   
@@ -15,6 +16,7 @@ class MediaController < InheritedResources::Base
   end
   
   def new
+    #@medium = current_user.build_medium
     @medium = Medium.new
     respond_with(@medium)  
   end
@@ -25,7 +27,9 @@ class MediaController < InheritedResources::Base
   end
   
   def create
-    @medium = Medium.create(media_params)
+    @medium = Medium.create(medium_params)
+    @medium.user_id = current_user.id
+    
     respond_with(@medium) do |format|
       if @medium.save
         format.html { redirect_to @medium, notice: 'Media was successfully created.' }
@@ -42,9 +46,19 @@ class MediaController < InheritedResources::Base
     respond_with(@medium)
   end
   
+  def edit
+    @medium = Medium.find(params[:id])
+    respond_with(@medium)
+  end
+  
+  def update
+    @medium = Medium.update(params[:id],medium_params)
+    respond_with(@medium)
+  end
+  
   private
   
-  def media_params
+  def medium_params
     params.require(:medium).permit!
   end
   

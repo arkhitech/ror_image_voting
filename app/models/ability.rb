@@ -10,8 +10,11 @@ class Ability
       can :read, ActiveAdmin::Page, :name => "Dashboard"
       can :manage, Slam
     else
+      can [:manage], UserGroup, user_id: user.id
+      can [:manage], Medium, user_id: user.id
       can :read, :all
-      can :manage, UserGroup
+      #can :read, Device, user_id: user.id
+
     end
   end
 end

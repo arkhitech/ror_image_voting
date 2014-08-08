@@ -13,8 +13,8 @@ ActiveAdmin.register GroupShare do
 
   form(:html => { :multipart => true }) do |f|
     f.inputs "Group Share Details" do
-      f.input :group_id, as: :select, collection: Group.all.map{|m| [m.group_name, m.id]}
-      f.input :media_id, as: :select, collection: Media.all.map{|m| [m.caption, m.id]}#, hint: f.template.image_tag(f.object.media.picture_url) 
+      f.input :user_group_id, as: :select, collection: UserGroup.all.map{|m| [m.group_name, m.id]}
+      f.input :medium_id, as: :select, collection: Medium.all.map{|m| [m.caption, m.id]}#, hint: f.template.image_tag(f.object.media.picture_url) 
     end
     f.actions
   end

@@ -1,4 +1,4 @@
 class GroupShare < ActiveRecord::Base
-  belongs_to :group
-  belongs_to :media
+  belongs_to :user_group
+  belongs_to :medium
 end

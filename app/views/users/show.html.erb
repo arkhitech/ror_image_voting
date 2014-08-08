@@ -1,0 +1,12 @@
+User Profile:
+
+
+<table>
+  <tr><th>Picture</th><td><%= image_tag @user.profile_picture_url(:thumb) %> </td></tr>
+  <tr><th>Name</th><td><%= @user.name  %> </td></tr>
+  <tr><th>Email</th><td><%= @user.email %> </td></tr>
+  <tr><th>Description</th><%= @user.description %> <td></td></tr>
+  <tr><th>Privacy</th><td><%= @user.is_private %> </td></tr>
+  
+  
+</table>

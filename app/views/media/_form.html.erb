@@ -13,7 +13,8 @@
 
   <div class="field">
     <%= f.label :picture %><br>
-    <%= f.text_field :picture %>
+    <%= f.file_field :picture %>
+    <%= image_tag(@medium.picture_url(:thumb)) if @medium.picture? %>
   </div>
   <div class="field">
     <%= f.label :caption %><br>
@@ -23,10 +24,10 @@
     <%= f.label :is_private %><br>
     <%= f.check_box :is_private %>
   </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
+  <!-- <div class="field">
+    <%#= f.label :user_id %><br>
+    <%#= f.text_field :user_id %>
+  </div> -->
   <div class="actions">
     <%= f.submit %>
   </div>

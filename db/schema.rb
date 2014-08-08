@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807062950) do
+ActiveRecord::Schema.define(version: 20140808113857) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -33,14 +33,14 @@ ActiveRecord::Schema.define(version: 20140807062950) do
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
 
   create_table "group_shares", force: true do |t|
-    t.integer  "group_id"
-    t.integer  "media_id"
+    t.integer  "user_group_id"
+    t.integer  "medium_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "group_shares", ["group_id"], name: "index_group_shares_on_group_id"
-  add_index "group_shares", ["media_id"], name: "index_group_shares_on_media_id"
+  add_index "group_shares", ["medium_id"], name: "index_group_shares_on_medium_id"
+  add_index "group_shares", ["user_group_id"], name: "index_group_shares_on_user_group_id"
 
   create_table "media", force: true do |t|
     t.string   "picture"
@@ -57,12 +57,12 @@ ActiveRecord::Schema.define(version: 20140807062950) do
 
   create_table "members", force: true do |t|
     t.integer  "user_id"
-    t.integer  "group_id"
+    t.integer  "user_group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "members", ["group_id"], name: "index_members_on_group_id"
+  add_index "members", ["user_group_id"], name: "index_members_on_user_group_id"
   add_index "members", ["user_id"], name: "index_members_on_user_id"
 
   create_table "slams", force: true do |t|
@@ -104,8 +104,10 @@ ActiveRecord::Schema.define(version: 20140807062950) do
     t.boolean  "is_private"
     t.string   "provider"
     t.string   "uid"
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

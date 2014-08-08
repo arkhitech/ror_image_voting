@@ -18,3 +18,4 @@
 /public/uploads/
 /config/database.yml
 /bin/
+/config/initializers/image_voting.rb

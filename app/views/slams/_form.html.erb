@@ -12,12 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :media_id_first_id %><br>
-    <%= f.text_field :media_id_first_id %>
+    <%#= f.label :medium_first_id %>
+    <%= f.hidden_field :medium_first_id, value: @slam.medium_first_id %>
   </div>
   <div class="field">
-    <%= f.label :media_id_second_id %><br>
-    <%= f.text_field :media_id_second_id %>
+    <%= f.label "Select a picture to slam with your picture" %><br>
+    <%#= f.text_field :medium_second_id %>
+    
+    <% current_user.media.each do |medium| %>
+    
+   <%= f.radio_button :medium_second_id, medium.id%> <%= f.label :medium_second_id, image_tag(medium.picture_url(:thumb))%>
+    
+    <% end %>
+    
   </div>
   <div class="actions">
     <%= f.submit %>

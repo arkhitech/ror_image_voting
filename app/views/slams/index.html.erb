@@ -12,8 +12,8 @@
   <tbody>
     <% @slams.each do |slam| %>
       <tr>
-        <td><%= slam.media_id_first %></td>
-        <td><%= slam.media_id_second %></td>
+        <td><%= slam.medium_first_id %></td>
+        <td><%= slam.medium_second_id %></td>
         <td><%= link_to 'Show', slam %></td>
         <td><%= link_to 'Edit', edit_slam_path(slam) %></td>
         <td><%= link_to 'Destroy', slam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -23,5 +23,8 @@
 </table>
 
 <br>
-
-<%= link_to 'New Slam', new_slam_path %>
+<%if params[:medium_id]%>
+  <%= link_to 'New Slam', new_medium_slam_path(params[:medium_id]) %>
+<%else%>
+  <%= link_to 'New Slam', new_slam_path %>
+<%end%>

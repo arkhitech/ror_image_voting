@@ -3,19 +3,23 @@ class SlamsController < InheritedResources::Base
   before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
   
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create]
   
   respond_to :json, :html, :xml
   
   
   
   def index
-    @slams = Slam.all
+    if params[:medium_id]
+      @slams = Slam.where(medium_first_id: params[:medium_id])
+    else
+      @slams = Slam.all
+    end    
     respond_with(@slams)
   end
   
   def new
-    @slam = Slam.new
+    @slam = Slam.new(medium_first_id: params[:medium_id])
     respond_with(@slam)
   end
   
@@ -25,7 +29,7 @@ class SlamsController < InheritedResources::Base
   end
   
   def create
-    @slam = Slam.create(group_params)
+    @slam = Slam.create(slam_params)
     respond_with(@slam) do |format|
       if @slam.save
         format.html { redirect_to @slam, notice: 'Slam was successfully created.' }
@@ -41,11 +45,11 @@ class SlamsController < InheritedResources::Base
     @slam = Slam.destroy(params[:id])
     respond_with(@slam)
   end
-  
+   
   
   private
   
-  def group_params
+  def slam_params
     params.require(:slam).permit!
   end
   

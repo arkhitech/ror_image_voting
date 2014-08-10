@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
-  resources :media
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", sessions: 'user_sessions', registrations: 'user_registrations'}
+  resources :users, only: [:show]
+  
+  resources :media do
+    resources :slams
+    collection do
+      get 'my_media'
+    end
+  end
+  #match "/my_media" => "media#my_media", via: [:get]
 
   resources :members
 
@@ -9,15 +20,17 @@ Rails.application.routes.draw do
 
   resources :votes
 
-  resources :slams
+  resources :slams do 
+    resources :votes do
+      collection do
+        get 'first_liked'
+        get 'second_liked'
+      end
+    end
+  end
 
   get 'welcome/index'
-
    
-  devise_for :admin_users, ActiveAdmin::Devise.config
-
-  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", sessions: 'user_sessions', registrations: 'user_registrations'}
-  resources :users, only: [:show]
   
 #  devise_scope :user do
 #    get 'login' => 'devise/sessions#new', as: :login

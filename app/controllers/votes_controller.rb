@@ -41,7 +41,14 @@ class VotesController < InheritedResources::Base
     respond_with(@vote)
   end
   
-  
+  def first_liked
+    Vote.create!(slam_id_id: params[:slam_id], vote_status: true, user_id_id: current_user.id)
+    redirect_to :back
+  end
+  def second_liked
+    Vote.create!(slam_id_id: params[:slam_id], vote_status: false, user_id_id: current_user.id)
+    redirect_to :back    
+  end
   private
   
   def group_params

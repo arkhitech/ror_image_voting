@@ -9,10 +9,25 @@ class MediaController < InheritedResources::Base
   
   def index
     #@media = Medium.all
+    @media = Medium.where(is_private: false).includes({slams: :medium_second})
+    #@media = current_user.media.all
+    respond_to do |format|
+      format.json do
+        render json: @media.as_json(include: {
+              slams: {
+                include: :medium_second,
+                methods: [:score]
+              }
+            })        
+      end
+      format.all {respond_with(@media)}
+      
+    end
+    
+  end
+  
+  def my_media
     @media = current_user.media.all
-    #extname = File.extname(@media)[1..-1]
-    #mime_type = Mime::Type.lookup_by_extension(extname)
-    #content_type = mime_type.to_s unless mime_type.nil?
     respond_with(@media)
   end
   

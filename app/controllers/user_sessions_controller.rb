@@ -15,7 +15,10 @@ class UserSessionsController < Devise::SessionsController
 
   def destroy
     respond_to do |format|
-      format.json {sign_out(resource_name)}
+      format.json {
+        sign_out(resource_name)
+        render json: {sucess: true}
+      }
       format.all {super}
     end    
   end

@@ -10,7 +10,7 @@ class UserGroupsController < InheritedResources::Base
   
   
   def index
-    @user_groups = UserGroup.all
+    @user_groups = current_user.user_groups.all
     respond_with(@user_groups)
   end
   

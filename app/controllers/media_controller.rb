@@ -8,7 +8,8 @@ class MediaController < InheritedResources::Base
   respond_to :json, :html, :xml
   
   def index
-    @media = Medium.all
+    #@media = Medium.all
+    @media = current_user.media.all
     #extname = File.extname(@media)[1..-1]
     #mime_type = Mime::Type.lookup_by_extension(extname)
     #content_type = mime_type.to_s unless mime_type.nil?

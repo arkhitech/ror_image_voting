@@ -1,5 +1,6 @@
-<h1>Listing All medias</h1> 
-<%= link_to 'My Media', my_media_media_path %>
+<h1>Listing Current User's media</h1>
+<%= link_to 'Back', media_path %> |
+<%= link_to 'New Medium', new_medium_path %>
 
 <table>
   <thead>
@@ -20,13 +21,11 @@
         <td><%= medium.is_private %></td>
         <td><%= medium.user_id %></td>
         <td><%= link_to 'Show', medium %></td>
-        <td><%#= link_to 'Edit', edit_medium_path(medium) %></td>
-        <td><%#= link_to 'Destroy', medium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_medium_path(medium) %></td>
+        <td><%= link_to 'Destroy', medium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-

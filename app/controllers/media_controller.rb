@@ -13,12 +13,14 @@ class MediaController < InheritedResources::Base
     #@media = current_user.media.all
     respond_to do |format|
       format.json do
-        render json: @media.as_json(include: {
-              slams: {
-                include: :medium_second,
-                methods: [:score]
-              }
-            })        
+        render json: @media.as_json(include: [
+                {slams: {
+                  include: :medium_second,
+                  methods: [:score]
+                }},
+                :comments
+              ]
+            )        
       end
       format.all {respond_with(@media)}
       
@@ -72,10 +74,11 @@ class MediaController < InheritedResources::Base
     respond_with(@medium)
   end
   
+  
   private
   
   def medium_params
     params.require(:medium).permit!
   end
-  
+    
 end

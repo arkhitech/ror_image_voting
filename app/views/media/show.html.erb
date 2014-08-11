@@ -17,8 +17,15 @@
 
 <p>
   <strong>User:</strong>
-  <%= @medium.user %>
+  <%= @medium.user_id %>
 </p>
+
+<p> 
+ <%#= link_to 'Add Comment', medium_new_comment_path(@medium) %>
+  <%= render partial: 'comment_form', locals: {medium: @medium, comment: @medium.comments.build} %>
+</p>
+
+
 
 <%= link_to 'Edit', edit_medium_path(@medium) %> |
 <%= link_to 'Slams', medium_slams_path(@medium.id) %> |

@@ -61,3 +61,6 @@ group :production do
 end
 
 gem 'figaro'
+
+gem 'acts_as_commentable'
+gem 'acts_as_votable', '~> 0.10.0'

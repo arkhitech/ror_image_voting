@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :members
   has_many :user_groups
+  has_many :following, foreign_key: 'user_id'
+  has_many :followers, class_name: 'Follower', foreign_key: 'follower_id'
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :omniauthable

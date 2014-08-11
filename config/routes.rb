@@ -1,24 +1,42 @@
 Rails.application.routes.draw do
+  resources :followers do
+    collection do
+      get 'get_following'
+    end
+  end
+
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", sessions: 'user_sessions', registrations: 'user_registrations'}
-  resources :users, only: [:show]
+  resources :users, only: [:show, :index] do
+    collection do
+      get 'follow'
+      get 'unfollow'
+    end
+  end
   
   resources :media do
     resources :slams
+    resources :comments, only: [:create]
+#    get 'new_comment'
     collection do
       get 'my_media'
     end
   end
   #match "/my_media" => "media#my_media", via: [:get]
 
-  resources :members
+  resources :members, only: [:index, :create, :show, :destroy]
 
   resources :group_shares
 
-  resources :user_groups
+  resources :user_groups do
+    resources :members
+    collection do
+      get 'my_group'
+    end
+  end
 
-  resources :votes
+  resources :votes, only: [:index, :show]
 
   resources :slams do 
     resources :votes do

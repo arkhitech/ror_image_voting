@@ -9,7 +9,8 @@ class VotesController < InheritedResources::Base
   
   
   def index
-    @votes = Vote.all
+    #@votes = Vote.all
+    @votes = Vote.where(slam_id: params[:slam_id])
     respond_with(@votes)
   end
   
@@ -42,14 +43,22 @@ class VotesController < InheritedResources::Base
   end
   
   def first_liked
-    Vote.create!(slam_id_id: params[:slam_id], vote_status: true, user_id_id: current_user.id)
-    redirect_to :back
+    apply_vote(true)
   end
+  
   def second_liked
-    Vote.create!(slam_id_id: params[:slam_id], vote_status: false, user_id_id: current_user.id)
-    redirect_to :back    
+    apply_vote(false)
   end
+  
   private
+
+  def apply_vote(vote_status)
+    @vote = Vote.create(slam_id: params[:slam_id], vote_status: vote_status, user_id: current_user.id)   
+    if @vote.errors
+      flash[:notice] = @vote.errors.full_messages.join("\n")
+    end
+    redirect_to :back        
+  end
   
   def group_params
     params.require(:vote).permit!

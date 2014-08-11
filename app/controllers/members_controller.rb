@@ -3,19 +3,23 @@ class MembersController < InheritedResources::Base
   before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
   
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create, :new]
   
   respond_to :json, :html, :xml
   
   
   
   def index
-    @members = Member.all
-    respond_with(@members)
+    if params[:user_group_id]
+      @members = Member.where(user_group_id: params[:user_group_id])
+    else
+      @members = Member.all
+    end
+      respond_with(@members)
   end
   
   def new
-    @member = Member.new
+    @member = Member.new(user_group_id: params[:user_group_id])
     respond_with(@member)
   end
   

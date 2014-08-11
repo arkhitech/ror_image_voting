@@ -12,11 +12,11 @@
   <tbody>
     <% @members.each do |member| %>
       <tr>
-        <td><%= member.user %></td>
-        <td><%= member.group %></td>
+        <td><%= member.user_id %></td>
+        <td><%= member.user_group_id %></td>
         <td><%= link_to 'Show', member %></td>
-        <td><%= link_to 'Edit', edit_member_path(member) %></td>
-        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%#= link_to 'Edit', edit_member_path(member) %></td>
+        <td><% if can? :manage, member %> <%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %><% end %> </td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,10 @@
 
 <br>
 
-<%= link_to 'New Member', new_member_path %>
+<% if params[:user_group_id] %>
+
+<%#= link_to 'New Member custom', new_user_group_member_path(params[:user_group_id]) %>
+<% else %>
+<%#= link_to 'New Member', new_member_path %>
+
+<% end %>

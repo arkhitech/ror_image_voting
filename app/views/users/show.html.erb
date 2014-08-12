@@ -7,6 +7,12 @@ User Profile:
   <tr><th>Email</th><td><%= @user.email %> </td></tr>
   <tr><th>Description</th><%= @user.description %> <td></td></tr>
   <tr><th>Privacy</th><td><%= @user.is_private %> </td></tr>
+  <tr><th>media count</th><td><%= @user.media_count %> </td></tr>
+  <tr><th>slams count</th><td><%= @user.slams_count %> </td></tr>
+  <tr><th>follower count</th><td><%= @user.followers_count%> </td></tr>
+  <tr><th>followed_by count</th><td><%= @user.following_count %> </td></tr>
   
   
 </table>
+
+<%= link_to 'Update Profile', edit_user_path %>

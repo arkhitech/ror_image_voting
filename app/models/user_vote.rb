@@ -1,4 +1,4 @@
-class Vote < ActiveRecord::Base
+class UserVote < ActiveRecord::Base
   belongs_to :user
   belongs_to :slam
   

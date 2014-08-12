@@ -1,12 +1,14 @@
 class User < ActiveRecord::Base
   has_many :media
-  has_many :votes
+  has_many :user_votes
   has_many :members
   has_many :user_groups
   has_many :following, foreign_key: 'user_id'
   has_many :followers, class_name: 'Follower', foreign_key: 'follower_id'
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :slams, through: :media
+  has_many :slammables, through: :media
   devise :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -63,6 +65,10 @@ class User < ActiveRecord::Base
     self.authentication_token
   end
   
+  def slams_count
+    self.media.sum(:slams_count)
+  end
+  
   private
   
   def generate_authentication_token
@@ -71,4 +77,5 @@ class User < ActiveRecord::Base
       break token unless User.where(authentication_token: token).first
     end
   end 
+  
 end

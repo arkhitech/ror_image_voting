@@ -1,4 +1,4 @@
-ActiveAdmin.register Vote do
+ActiveAdmin.register UserVote do
 
 
   # See permitted parameters documentation:

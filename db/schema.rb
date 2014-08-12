@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811101700) do
+ActiveRecord::Schema.define(version: 20140812112210) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -69,12 +69,14 @@ ActiveRecord::Schema.define(version: 20140811101700) do
 
   create_table "media", force: true do |t|
     t.string   "picture"
-    t.string   "caption",       limit: 140
+    t.string   "caption",          limit: 140
     t.boolean  "is_private"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "admin_user_id"
+    t.integer  "slams_count"
+    t.integer  "slammables_count"
   end
 
   add_index "media", ["admin_user_id"], name: "index_media_on_admin_user_id"
@@ -109,6 +111,17 @@ ActiveRecord::Schema.define(version: 20140811101700) do
 
   add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id"
 
+  create_table "user_votes", force: true do |t|
+    t.boolean  "vote_status"
+    t.integer  "user_id"
+    t.integer  "slam_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_votes", ["slam_id"], name: "index_user_votes_on_slam_id"
+  add_index "user_votes", ["user_id"], name: "index_user_votes_on_user_id"
+
   create_table "users", force: true do |t|
     t.string   "email",                              default: "", null: false
     t.string   "encrypted_password",                 default: "", null: false
@@ -130,6 +143,9 @@ ActiveRecord::Schema.define(version: 20140811101700) do
     t.string   "provider"
     t.string   "uid"
     t.string   "authentication_token"
+    t.integer  "media_count"
+    t.integer  "followers_count"
+    t.integer  "following_count"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true
@@ -137,14 +153,18 @@ ActiveRecord::Schema.define(version: 20140811101700) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "votes", force: true do |t|
-    t.boolean  "vote_status"
-    t.integer  "user_id"
-    t.integer  "slam_id"
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["slam_id"], name: "index_votes_on_slam_id"
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
 
 end

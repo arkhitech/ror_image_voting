@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong><%= link_to 'Media id first:',  first_liked_slam_votes_path(@slam) %></strong>
+  <strong><%= link_to 'Media id first:',  first_liked_slam_user_votes_path(@slam) %></strong>
   <%= @slam.medium_first_id %>
 </p>
 
 <p>  
-  <strong><%= link_to 'Media id second:',  second_liked_slam_votes_path(@slam) %></strong>
+  <strong><%= link_to 'Media id second:',  second_liked_slam_user_votes_path(@slam) %></strong>
   <%= @slam.medium_second_id %>
 </p>
 
 <%= link_to 'Edit', edit_slam_path(@slam) %> |
-<%= link_to 'Back', slams_path %>
+

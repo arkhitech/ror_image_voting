@@ -15,12 +15,12 @@ class Ability
       can [:manage], Medium, user_id: user.id
       can [:manage], Slam#, medium_first: {user_id: user.id}
       can [:manage], Member, user_group: {user_id: user.id}
-      can [:manage], Vote
+      can [:manage], UserVote
       can [:manage], Follower
       can [:manage], Comment
       #can :manage, Member
       can :read, :all
-      #can :read, Device, user_id: user.id
+      can :manage, User, id: user.id
 
     end
   end

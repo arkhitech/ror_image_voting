@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", sessions: 'user_sessions', registrations: 'user_registrations'}
-  resources :users, only: [:show, :index] do
+  resources :users, only: [:show, :index, :edit, :update] do
     collection do
       get 'follow'
       get 'unfollow'
@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   resources :media do
     resources :slams
     resources :comments, only: [:create, :destroy]
+    get 'like'
+    get 'dislike'
+    get 'unlike'
+    get 'undislike'
 #    get 'new_comment'
     collection do
       get 'my_media'
@@ -36,10 +40,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :votes, only: [:index, :show]
+  resources :user_votes, only: [:index, :show]
 
   resources :slams do 
-    resources :votes do
+    resources :user_votes do
       collection do
         get 'first_liked'
         get 'second_liked'

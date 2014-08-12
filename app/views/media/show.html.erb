@@ -1,29 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Picture:</strong>
-  <%= image_tag @medium.picture_url %>
+<table>
+  <tr><th>Picture:</th>
+    <td><%= image_tag @medium.picture_url %></td></tr>
+
+<tr><th>Caption:</th>
+  <td><%= @medium.caption %></td></tr>
+
+  <tr><th>Is private:</th>
+  <td><%= @medium.is_private %></td></tr>
+
+  <tr><th>User ID:</th>
+  <td><%= @medium.user_id %></td></tr>
+
+</table>
+
+<p><strong> Total Likes: 
+<%= @medium.get_likes.size %> </strong> ||
+<strong> Total Dislikes: 
+<%= @medium.get_dislikes.size %> </strong>
+<br>
+
+<%= link_to 'Like', medium_like_path(@medium) %> | <%= link_to 'Unlike', medium_unlike_path(@medium) %> ||
+<%= link_to 'Dislike', medium_dislike_path(@medium) %> | <%= link_to 'Undislike', medium_undislike_path(@medium) %>
 </p>
 
-<p>
-  <strong>Caption:</strong>
-  <%= @medium.caption %>
-</p>
-
-<p>
-  <strong>Is private:</strong>
-  <%= @medium.is_private %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @medium.user_id %>
-</p>
-
-
+<br>
 <%= link_to 'Edit', edit_medium_path(@medium) %> |
 <%= link_to 'Slams', medium_slams_path(@medium.id) %> |
 <%= link_to 'Back', media_path %>
+
 
 <p> 
  <%#= link_to 'Add Comment', medium_new_comment_path(@medium) %>

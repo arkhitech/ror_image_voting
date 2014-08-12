@@ -18,8 +18,9 @@ class MediaController < InheritedResources::Base
                   include: :medium_second,
                   methods: [:score]
                 }},
-                :comments
-              ]
+                :comments                
+              ],
+              methods: :likes_count
             )        
       end
       format.all {respond_with(@media)}
@@ -33,6 +34,30 @@ class MediaController < InheritedResources::Base
     respond_with(@media)
   end
   
+  def like
+    media = Medium.find(params[:medium_id])
+    media.liked_by current_user
+    redirect_to :back, notice: 'Liked!'
+  end
+  
+  def dislike
+    media = Medium.find(params[:medium_id])
+    media.disliked_by current_user
+    redirect_to :back, notice: 'DisLiked!'
+  end
+  
+  def unlike
+    media = Medium.find(params[:medium_id])
+    media.unliked_by current_user
+    redirect_to :back, notice: 'Unliked!'
+  end
+  
+  def undislike
+    media = Medium.find(params[:medium_id])
+    media.undisliked_by current_user
+    redirect_to :back, notice: 'UndisLiked!'
+  end
+    
   def new
     #@medium = current_user.build_medium
     @medium = Medium.new

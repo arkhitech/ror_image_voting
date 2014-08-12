@@ -15,7 +15,7 @@
       <tr>
         <td><%= slam.medium_first_id %></td>
         <td><%= slam.medium_second_id %></td>
-        <td><%= link_to 'Check Vote', slam_votes_path(slam)  %></td>
+        <td><%= link_to 'Check Vote', slam_user_votes_path(slam)  %></td>
         <td><%= link_to 'Show', slam %></td>
         <td><%= link_to 'Edit', edit_slam_path(slam) %></td>
         <td><%= link_to 'Destroy', slam, method: :delete, data: { confirm: 'Are you sure?' } %></td>

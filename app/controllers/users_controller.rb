@@ -44,7 +44,7 @@ class UsersController < InheritedResources::Base
   end
   
   def update
-    @user = User.update(user_params)
+    @user = User.update(current_user.id,user_params)
     respond_with(@user)
   end
   

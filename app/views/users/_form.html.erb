@@ -22,7 +22,7 @@
   <div class="field">
     <%= f.label :profile_picture%>
     <%= f.file_field :profile_picture %>
-    <%#= image_tag(@user.profile_picture_url(:thumb)), if @user.profile_picture? ) %>
+    <%= image_tag(@user.profile_picture_url(:thumb)) if @user.profile_picture? %>
   </div>
   <div class="field">
     <%= f.label :description%>

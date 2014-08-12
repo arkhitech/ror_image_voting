@@ -41,6 +41,7 @@ class MediaController < InheritedResources::Base
   
   def show
     @medium = Medium.find(params[:id])
+    @comments = @medium.comments.all
     respond_with(@medium)
   end
   

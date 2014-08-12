@@ -20,6 +20,13 @@ class CommentsController < InheritedResources::Base
     medium = Medium.find(params[:medium_id])
     rend json: {comments: medium.comments.as_json}
   end
+  
+  def destroy
+    medium = Medium.find(params[:medium_id])
+    comment = medium.comments.find(params[:id])
+    comment.destroy
+    redirect_to :back, notice: 'Comment deleted!'
+  end
   protected
   
   def comment_params

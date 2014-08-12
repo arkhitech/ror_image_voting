@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   
   resources :media do
     resources :slams
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :destroy]
 #    get 'new_comment'
     collection do
       get 'my_media'

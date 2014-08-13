@@ -21,6 +21,7 @@ class Ability
       #can :manage, Member
       can :read, :all
       can :manage, User, id: user.id
+      can [:follow, :unfollow], User
 
     end
   end

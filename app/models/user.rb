@@ -11,11 +11,15 @@ class User < ActiveRecord::Base
   has_many :slammables, through: :media
   devise :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
        
   mount_uploader :profile_picture, AvatarUploader
   # You likely have this before callback set up for the token.
   before_save :ensure_authentication_token
+  
+  validates :username, presence: true, uniqueness: true, case_sensitive:false
+  
+  attr_accessor :login
          
   def role?(r)
     # if role != nil
@@ -67,6 +71,15 @@ class User < ActiveRecord::Base
   
   def slams_count
     self.media.sum(:slams_count)
+  end
+  
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
   end
   
   private

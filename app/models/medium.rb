@@ -6,8 +6,8 @@ class Medium < ActiveRecord::Base
   belongs_to :admin_user
   
   has_many :group_shares
-  has_many :slammables, foreign_key: 'medium_first_id'
-  has_many :slams, class_name: 'Slam', foreign_key: 'medium_second_id'
+  has_many :slams, foreign_key: 'medium_first_id'
+  has_many :slammables, class_name: 'Slam', foreign_key: 'medium_second_id'
   mount_uploader :picture, AvatarUploader
   
   def likes_count    

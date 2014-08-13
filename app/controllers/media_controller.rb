@@ -18,7 +18,7 @@ class MediaController < InheritedResources::Base
                   include: :medium_second,
                   methods: [:score]
                 }},
-                :comments                
+                :comments, :user                
               ],
               methods: :likes_count
             )        

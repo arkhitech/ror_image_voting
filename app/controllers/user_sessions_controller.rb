@@ -20,7 +20,7 @@ class UserSessionsController < Devise::SessionsController
     respond_to do |format|
       format.json {
         sign_out(resource_name)
-        render json: {sucess: true}
+        render json: {success: true}
       }
       format.all {super}
     end    

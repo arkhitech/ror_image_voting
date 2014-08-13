@@ -7,6 +7,11 @@ class Slam < ActiveRecord::Base
   
   accepts_nested_attributes_for :medium_first, :medium_second
   def score
-    "#{'%.2f' % (rand*100)}%"
+    #"#{'%.2f' % (rand*100)}%"
+    pvote = self.user_votes.select{|p| p.vote_status == true}.count
+    nvote = self.user_votes.select{|p| p.vote_status == false}.count
+    total = pvote + nvote
+    #score = ActionController::Base.helpers.number_to_percentage((pvote/total * 100), precision: 2)
+    score = "#{'%.2f' % (pvote.to_f/total *100)}%"
   end
 end

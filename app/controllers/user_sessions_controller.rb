@@ -7,7 +7,10 @@ class UserSessionsController < Devise::SessionsController
       format.json do
         self.resource = warden.authenticate!(auth_options)
         sign_in(resource_name, resource)              
-        render json: {authentication_token: resource.reset_authentication_token}
+        render json: {
+          authentication_token: resource.reset_authentication_token,
+          id: resource.id
+          }
       end
       format.all {super}      
     end

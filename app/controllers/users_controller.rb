@@ -26,15 +26,24 @@ class UsersController < InheritedResources::Base
   def follow
     @user = User.find(params[:id])
     @user = Follower.create(user_id: params[:id], follower_id: current_user.id)
-    @user.save
-    flash[:notice] = "Following user now"
-    redirect_to :back
+    #@user.save
+    if @user.save
+      flash[:notice] = "Following user now"
+    else
+      flash[:notice] = @user.errors.full_messages.join("\n")      
+    end
+      redirect_to :back
+    
   end
   
   def unfollow
     @follower = Follower.where(user_id: params[:id], follower_id: current_user.id)
-    @follower.destroy_all
-    flash[:notice] = "Unfollowing user now"
+    if(@follower.any?)
+      @follower.destroy_all
+      flash[:notice] = "Unfollowing user now"
+    else
+      flash[:notice] = "Already not following!"
+    end
     redirect_to :back
   end
   

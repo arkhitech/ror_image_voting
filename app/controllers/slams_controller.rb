@@ -11,11 +11,16 @@ class SlamsController < InheritedResources::Base
   
   def index
     if params[:medium_id]
-      @slams = Slam.where(medium_first_id: params[:medium_id])
+      @slams = Slam.where(medium_first_id: params[:medium_id]).
+        includes({medium_first: :user}, {medium_second: :user})
     else
-      @slams = Slam.all
+      @slams = Slam.all.includes({medium_first: :user}, {medium_second: :user})
     end    
-    respond_with(@slams)
+    respond_with(@slams) do |format|
+      format.json {render json: @slams.as_json(include: {
+            medium_first: {include: :user},
+            medium_second: {include: :user}})}
+    end
   end
   
   def new

@@ -13,6 +13,6 @@ class Slam < ActiveRecord::Base
     nvote = self.user_votes.select{|p| p.vote_status == false}.count
     total = pvote + nvote
     #score = ActionController::Base.helpers.number_to_percentage((pvote/total * 100), precision: 2)
-    score = "#{'%.2f' % (pvote.to_f/total *100)}%"
+    total > 0 ? "#{'%.2f' % (pvote.to_f/total *100)}%": '0%'
   end
 end

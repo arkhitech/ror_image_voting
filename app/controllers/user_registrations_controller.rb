@@ -1,6 +1,6 @@
 class UserRegistrationsController < Devise::RegistrationsController
   skip_before_filter :verify_authenticity_token,
-                     :if => Proc.new { |c| c.request.format == 'application/json' }
+                     if: Proc.new { |c| c.request.format == 'application/json' }
   
   def create
     if request.format == Mime::JSON

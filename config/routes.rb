@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks", sessions: 'user_sessions', registrations: 'user_registrations'}
+  devise_for :users, controllers: {
+    omniauth_callbacks: "omniauth_callbacks", sessions: 'user_sessions', 
+    registrations: 'user_registrations', passwords: 'user_passwords'
+  }
   resources :users, only: [:show, :index, :edit, :update] do
     collection do
       get 'follow'
@@ -22,6 +25,9 @@ Rails.application.routes.draw do
     get 'dislike'
     get 'unlike'
     get 'undislike'
+    member do
+      post 'challenge'
+    end
 #    get 'new_comment'
     collection do
       get 'my_media'

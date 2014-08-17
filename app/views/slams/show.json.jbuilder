@@ -1,1 +1,1 @@
-json.extract! @slam, :id, :media_id_first_id, :media_id_second_id, :created_at, :updated_at
+json.extract! @slam, :id, :medium_first_id, :medium_second_id, :created_at, :updated_at

@@ -1,4 +1,6 @@
 class MediaController < InheritedResources::Base
+  skip_before_filter :verify_authenticity_token,
+                     :if => Proc.new { |c| c.request.format == 'application/json' }
   
   before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
@@ -77,10 +79,10 @@ class MediaController < InheritedResources::Base
     respond_with(@medium) do |format|
       if @medium.save
         format.html { redirect_to @medium, notice: 'Media was successfully created.' }
-        format.json { render @medium }
+        format.json { render json: @medium }
       else
         format.html { render action: "new" }
-        format.json { render @medium.error}
+        format.json { render json: @medium.errors}
       end
     end
   end
@@ -88,6 +90,15 @@ class MediaController < InheritedResources::Base
   def destroy
     @medium = Medium.destroy(params[:id])
     respond_with(@medium)
+  end
+  
+  def challenge
+    medium = Medium.find(params[:id])
+    friends = User.where(id: params[:friends])
+    friends.each do |friend|
+      Mailer.challenge_friend(current_user, friend, medium).deliver
+    end
+    render json: friends    
   end
   
   def edit

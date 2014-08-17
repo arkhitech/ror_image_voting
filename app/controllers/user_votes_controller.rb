@@ -32,7 +32,7 @@ class UserVotesController < InheritedResources::Base
         format.json { render @user_vote }
       else
         format.html { render action: "new" }
-        format.json { render @user_vote.error}
+        format.json { render json: @user_vote.errors}
       end
     end
   end
@@ -53,11 +53,28 @@ class UserVotesController < InheritedResources::Base
   private
 
   def apply_user_vote(vote_status)
-    @user_vote = UserVote.create(slam_id: params[:slam_id], vote_status: vote_status, user_id: current_user.id)   
-    if @user_vote.errors
-      flash[:notice] = @user_vote.errors.full_messages.join("\n")
+    @user_vote = current_user.user_votes.where(slam_id: params[:slam_id])
+    unless @user_vote
+      @user_vote.vote_status = vote_status
+      @user_vote.save
+    else
+      @user_vote = UserVote.create(slam_id: params[:slam_id], vote_status: vote_status, user_id: current_user.id)   
     end
-    redirect_to :back        
+    respond_with(@user_vote) do	|format|
+      format.html { 
+        if @user_vote.errors
+          flash[:notice] = @user_vote.errors.full_messages.join("\n")
+        end
+        redirect_to :back 
+      }
+      format.json {
+        if @user_vote.errors
+          render json: @user_vote.errors
+        else
+          render json: @user_vote
+        end
+      }
+    end
   end
   
   def group_params

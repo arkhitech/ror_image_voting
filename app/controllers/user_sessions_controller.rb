@@ -7,9 +7,14 @@ class UserSessionsController < Devise::SessionsController
   def create
     respond_to do |format|
       format.json do
-        self.resource = warden.authenticate!(auth_options)
-        sign_in(resource_name, resource)
-        authentication_token = params[:authentication_token] || resource.reset_authentication_token
+        if current_user.nil?
+          self.resource = warden.authenticate!(auth_options)
+          sign_in(resource_name, resource)
+          authentication_token = params[:authentication_token] || resource.reset_authentication_token
+        else
+          self.resource = current_user
+          authentication_token = resource.authentication_token
+        end
         render json: {
           authentication_token: authentication_token,
           id: resource.id

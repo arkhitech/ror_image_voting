@@ -3,6 +3,12 @@
 # and open the template in the editor.
 
 class CommentsController < InheritedResources::Base
+  
+  before_filter :authenticate_user_from_token!
+  before_filter :authenticate_user!
+  
+  load_and_authorize_resource except: [:create]
+  
   def create
     medium = Medium.find(params[:medium_id])
     comment = medium.comments.build(comment_params)

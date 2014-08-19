@@ -7,6 +7,16 @@ class Slam < ActiveRecord::Base
   
   accepts_nested_attributes_for :medium_first, :medium_second
   
+  validates :medium_first, uniqueness: {scope: :medium_second, message: "slam already exist"}
+  
+  validate :both_pictures_different
+  
+  def both_pictures_different
+    if self.medium_first == self.medium_second
+      errors.add(:medium_first, 'must be different from Medium second')
+    end
+  end
+  
   def score
     #"#{'%.2f' % (rand*100)}%"
     pvote = self.user_votes.select{|p| p.vote_status == true}.count

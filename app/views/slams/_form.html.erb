@@ -19,7 +19,7 @@
     <%= f.label "Select a picture to slam with your picture" %><br>
     <%#= f.text_field :medium_second_id %>
     
-    <% Medium.where(is_private: false).each do |medium| %>
+    <% Medium.where.not(is_private: true, id: @slam.medium_first_id).each do |medium| %>
     
    <%= f.radio_button :medium_second_id, medium.id%> <%= f.label :medium_second_id, image_tag(medium.picture_url(:thumb))%>
     

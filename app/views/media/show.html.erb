@@ -26,7 +26,7 @@
 </p>
 
 <br>
-<%= link_to 'Edit', edit_medium_path(@medium) %> |
+<% if can? :edit, @medium %> <%= link_to 'Edit', edit_medium_path(@medium) %> | <% end %>
 <%= link_to 'Slams', medium_slams_path(@medium.id) %> |
 <%= link_to 'Back', media_path %>
 
@@ -41,7 +41,8 @@
  <table>
    <tr><th>User</th><th>title</th><th>Comment</th></tr>
    <% @comments.each do |com| %>
-     <tr><td><%= com.user_id %></td><td><%= com.title %></td><td><%= com.comment %></td><td><%= link_to 'Delete', medium_comment_path(id: com.id, medium_id: @medium.id), method: :delete, data: {confirm: 'Are you sure?'} %> </tr>
+     <tr><td><%= com.user_id %></td><td><%= com.title %></td><td><%= com.comment %></td>
+<% if can? :destroy, com  %>  <td> <%= link_to 'Delete', medium_comment_path(id: com.id, medium_id: @medium.id), method: :delete, data: {confirm: 'Are you sure?'} %> </td> <% end %>  </tr>
    <% end %>
  </table>
    

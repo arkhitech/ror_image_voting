@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   
   resources :media do
     resources :slams
-    resources :comments, only: [:create, :destroy]
+    resources :comments
     get 'like'
     get 'dislike'
     get 'unlike'

@@ -24,7 +24,7 @@ class CommentsController < InheritedResources::Base
   
   def index
     medium = Medium.find(params[:medium_id])
-    rend json: {comments: medium.comments.as_json}
+    render json: {comments: medium.comments.as_json}
   end
   
   def destroy

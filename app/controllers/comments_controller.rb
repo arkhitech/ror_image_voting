@@ -9,17 +9,25 @@ class CommentsController < InheritedResources::Base
   
   load_and_authorize_resource except: [:create]
   
+  respond_to :json, :xml, :html
+  
   def create
     medium = Medium.find(params[:medium_id])
-    comment = medium.comments.build(comment_params)
-    comment.user_id = current_user.id
+    @comment = medium.comments.build(comment_params)
+    @comment.user_id = current_user.id
     #@medium.comments << Medium.new(comment_params)
-    if comment.save
-      redirect_to :back, notice: 'Comment saved!'
-    else
-      redirect_to action: :show, id: params[:id], error: 'Error saving comment'
+    
+    respond_with(@comment) do |format|
+      if @comment.save
+        format.html { redirect_to :back, notice: 'Comment saved!' }
+        format.json { render json: @comment }
+      else
+        redirect_to action: :show, id: params[:id], error: 'Error saving comment'
+        format.html { redirect_to action: :show, id: params[:id], error: 'Error saving comment' }
+        format.json { render json: @comment.errors}
+      end
+      #respond_with(@medium)
     end
-    #respond_with(@medium)
   end
   
   def index

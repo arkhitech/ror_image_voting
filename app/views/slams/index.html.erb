@@ -26,7 +26,8 @@
 
 <br>
 <%if params[:medium_id]%>
-  <%= link_to 'New Slam', new_medium_slam_path(params[:medium_id]) %>
+  <%= link_to 'New Slam', new_medium_slam_path(params[:medium_id]) %> |
+  <%= link_to 'Back', medium_path(params[:medium_id]) %>
 <%else%>
   <%= link_to 'New Slam', new_slam_path %>
 <%end%>

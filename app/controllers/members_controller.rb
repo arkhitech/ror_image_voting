@@ -32,7 +32,7 @@ class MembersController < InheritedResources::Base
     @member = Member.create(group_params)
     respond_with(@member) do |format|
       if @member.save
-        format.html { redirect_to @member, notice: 'User was successfully created.' }
+        format.html { redirect_to @member, notice: 'Successfully joined the group' }
         format.json { render @member }
       else
         format.html { render action: "new" }

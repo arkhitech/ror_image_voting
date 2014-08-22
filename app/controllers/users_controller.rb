@@ -60,7 +60,7 @@ class UsersController < InheritedResources::Base
   end
   
   def show
-    if params[:id] == 'me'
+    if params[:id] == '0'
       @user = current_user
     else
       @user = User.find(params[:id])

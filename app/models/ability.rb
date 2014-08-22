@@ -15,6 +15,7 @@ class Ability
       can [:manage], Medium, user_id: user.id
       can [:manage], Slam, medium_first: {user_id: user.id}
       can [:manage], Member, user_group: {user_id: user.id}
+      can [:destroy], Member, user_id: user.id
       can [:manage], UserVote
       can [:manage], Follower
       

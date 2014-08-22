@@ -16,7 +16,7 @@
         <td><%= member.user_group_id %></td>
         <td><%= link_to 'Show', member %></td>
         <td><%#= link_to 'Edit', edit_member_path(member) %></td>
-        <td><% if can? :manage, member %> <%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %><% end %> </td>
+        <td><% if can? :destroy, member %> <%= link_to 'Leave Group', member, method: :delete, data: { confirm: 'Are you sure?' } %><% end %> </td>
       </tr>
     <% end %>
   </tbody>
